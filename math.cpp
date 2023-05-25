@@ -94,46 +94,34 @@ vector<double> cv_ur(double a, double b, double c) //ax^2+bx+c=0
     return res;
 }
 
-template<class T>
-class Uravnenie
+double det(int n, vector<double> mat) //определитель только для квадратных матриц размера n
 {
-protected:
-    T* coef; // коэффициенты
-    int n; // порядок уравнения
-public:
-    Uravnenie()
+    double res = 1;
+    vector<double> vec = mat;
+    
+    for (int i = 0; i < n; i=i+n+1)
     {
-        n = 0;
-        coef = nullptr;
+        if (vec[i] == 0) continue;
+        double a = vec[i];
+        for (int j = i+1; j < n; j++)
+        {
+            vec[j * n + i] = 0;
+            for (int k = i+1; k < n; k++)
+            {
+                vec[j * n + k] -= vec[i * n + k] / a;
+            }
+        }
     }
 
-    Uravnenie(int N)
-    {
-        n = N;
-        coef = (T*)new T[n];
-        for (int i = 0; i < n; i++)
-            coef[i] = 0;
-    }
+    for (int i = 0; i < n; i++) res *= vec[i * n + i];
 
-    Uravnenie(const Uravnenie& u)
-    {
-        n = u.n;
-        coef = (T*)new T[n];
-        for (int i = 0; i < n; i++)
-            coef[i] = u.coef[i];
-    }
-
-    Uravnenie(T* c, int n)
-    {
-
-    }
-};
+    return res;
+}
 
 
 int main()
 {
-    vector <double> a = cv_ur(1,3,-4);
-    for (auto i: a)
-        cout << i << ' ';
+    vector <double> a = {3, 2, 0, 1};
+    cout<< det (2,a);
 }
 

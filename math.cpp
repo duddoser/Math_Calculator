@@ -253,7 +253,7 @@ vector<T> getSolutionRG(Matrix<T>& tr_matrix) {
 
 // Алгоритм обратного хода Гаусса для неопределенных систем
 template <class T>
-void underReverseGauss(Matrix<T>& tr_matrix, Matrix<T>& const_values, int rank)
+void underReverseGauss(Matrix<T>& tr_matrix, Matrix<T>& const_values, int rank = 0)
 {
     int cur_row, i, k, cur_el, base_el_ind;
     int n = tr_matrix.h();
@@ -446,7 +446,7 @@ vector<T> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T nu
             }
         }
         cout << "Inconsistent system - there is no solution" << "\n";
-        return 0;
+        return res;
     }
 
     //  Система совместна и определена - имеет единственное решение
@@ -458,15 +458,13 @@ vector<T> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T nu
 
     //  Система совместна и не определена - имеет бесконечное множество решений
     if (rank < coef_matrix.w()) {
-        Matrix<T> const_values(coef_matrix.w(), triangular_matrix.w() - rank, null_el);
-        underReverseGauss(triangular_matrix, const_values, rank);
-        getSolutionURG(const_values);
+        cout << "endless solution" << "\n";
         return res;
     }
 }
 
 
-int slau(int n, int m, vector<double> B, vector<double> A) //n - количество строк и соотв количество элементов в B; m - столбцы; A -матрица; B - свободные коэф
+vector<Fraction> slau(int n, int m, vector<double> B, vector<double> A) //n - количество строк и соотв количество элементов в B; m - столбцы; A -матрица; B - свободные коэф
 {
     int v, eq, i, p;
     vector<Fraction> f;
@@ -486,7 +484,7 @@ int slau(int n, int m, vector<double> B, vector<double> A) //n - количес�
     }
     Matrix<Fraction> b(eq, 1, b1);
 
-    return sleCalculator(M, b, null_el);
+    return sleCalculator_vec(M, b, null_el);
 }
 
 
@@ -528,8 +526,8 @@ int main()
 {
     vector <double> a = {1, 2, 0, 1};
     vector <double> b = { 3,1 };
-    
-    cout << slau(2,2,b,a);
-    
+    vector<Fraction> res = slau(2,2,b,a);
+    for (int i = 0; i < res.size(); i++)
+        cout << res[i];
 }
 

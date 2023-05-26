@@ -1,6 +1,6 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
+#include <cmath>
 
 
 
@@ -136,7 +136,7 @@ double det(int n, vector<double> mat) //определитель только д
 }
 
 //лизины СЛАУ начинаются
-
+/*
 int gcd(int a, int b) {
     return b != 0 ? gcd(b, a % b) : a;
 }
@@ -972,7 +972,7 @@ int slau(int n, int m, vector<double> B, vector<double> A) //n - количес�
 
     return sleCalculator(M, b, null_el);
 }
-
+*/
 
 int main()
 {

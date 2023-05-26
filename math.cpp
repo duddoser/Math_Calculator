@@ -138,7 +138,10 @@ double det(int n, vector<double> mat) //определитель только д
 string to_string(Fraction f)
 {
     string a="";
-    a = to_string(f.n())+"/"+to_string(f.d());
+    if (f.d() == 1)
+        a = to_string(f.n());
+    else
+        a = to_string(f.n())+"/"+to_string(f.d());
     return a;
 }
 

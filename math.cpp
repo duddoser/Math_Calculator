@@ -1,7 +1,4 @@
-﻿#include <iostream>
-#include <vector>
-#include <cmath>
-#include <algorithm>
+﻿#include <bits/stdc++.h>
 #include "Fraction.cpp"
 #include "Matrix.cpp"
 
@@ -243,12 +240,14 @@ Matrix<T> pseudoInverseMatrix(Matrix<T>& coef_matrix)
 
 
 template <class T>
-void getSolutionRG(Matrix<T>& tr_matrix) {
+vector<T> getSolutionRG(Matrix<T>& tr_matrix) {
+    vector<T> res;
     int n = tr_matrix.h(), i;
     int w = tr_matrix.w();
     for (i = 0; i < n; i++) {
-        cout << "x" << i + 1 << " = " << tr_matrix[i][w - 1] << "\n";
+        res.push_back(tr_matrix[i][w - 1] );
     }
+    return res;
 }
 
 
@@ -410,6 +409,62 @@ int sleCalculator(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T null_el)
     }
 }
 
+template<class T>
+vector<T> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T null_el)
+{
+    vector<T> res;
+
+    //  Строим расширенную матрицу, приводим ее к верхне-треугольному виду
+    Matrix<T> exp_matrix = coef_matrix.concateMatrix(const_terms);
+    Matrix<T> triangular_matrix = gauss(exp_matrix);
+
+    //  Находим ранг верхне-треугольной матрицы
+    int rank = matrixRank(triangular_matrix);
+
+    bool is_null_row = true;
+    for (int j = 0; j < triangular_matrix.w() - 1; j++)
+        if (triangular_matrix[rank - 1][j] != 0)
+            is_null_row = false;
+
+    //  Если система несовместна, она не имеет решений либо существует приближенное решение
+    if (is_null_row && triangular_matrix[rank - 1][triangular_matrix.w() - 1] != 0) {
+        int width = coef_matrix.w();
+        if (rank > width) {
+            //      Проверяем, если в треугольной матрице матрица А имеет ранг равный числу неизвестных
+            is_null_row = true;
+            for (int j = 0; j < triangular_matrix.w() - 1; j++) {
+                if (triangular_matrix[width - 1][j] != 0)
+                    is_null_row = false;
+            }
+            if (!is_null_row) {
+                //        Находим псевдорешение
+                Matrix<T> pseudo_matrix(pseudoInverseMatrix(coef_matrix));
+                Matrix<T> answer(pseudo_matrix * const_terms);
+                cout << "Inconsistent system - there can be only pseudoanswer:" << "\n";
+                res = getSolutionRG(answer);
+                return res;
+            }
+        }
+        cout << "Inconsistent system - there is no solution" << "\n";
+        return 0;
+    }
+
+    //  Система совместна и определена - имеет единственное решение
+    if (rank == coef_matrix.w()) {
+        reverseGauss(triangular_matrix);
+        res = getSolutionRG(triangular_matrix);
+        return res;
+    }
+
+    //  Система совместна и не определена - имеет бесконечное множество решений
+    if (rank < coef_matrix.w()) {
+        Matrix<T> const_values(coef_matrix.w(), triangular_matrix.w() - rank, null_el);
+        underReverseGauss(triangular_matrix, const_values, rank);
+        getSolutionURG(const_values);
+        return res;
+    }
+}
+
 
 int slau(int n, int m, vector<double> B, vector<double> A) //n - количество строк и соотв количество элементов в B; m - столбцы; A -матрица; B - свободные коэф
 {
@@ -455,12 +510,26 @@ double inegral(double a, double b)//a - нижний предел; b - верх�
     return Integral;
 }
 
+double proizvodnaya(double x) // точка, в которой вычисляем производную
+{
+    double h, fl, fr, fc;
+
+    h = 0.1; // шаг, с которым вычисляем производную
+
+    // приближенно вычисляем первую производную различными способами
+    fl = (f(x) - f(x - h)) / h; // левая
+    fr = (f(x + h) - f(x)) / h; // правая
+    fc = (f(x + h) - f(x - h)) / (2 * h); // центральная
+
+    return fc;
+}
+
 int main()
 {
     vector <double> a = {1, 2, 0, 1};
     vector <double> b = { 3,1 };
     
-    cout << inegral(0, 1);
+    cout << slau(2,2,b,a);
     
 }
 

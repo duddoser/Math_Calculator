@@ -103,7 +103,19 @@ double det(int n, vector<double> mat) //определитель только д
     
     for (int i = 0; i < n; i = i + n + 1)
     {
-        if (vec[i] == 0) continue;
+        if (vec[i] == 0)
+        {
+            int k = i;
+            while ((vec[k] == 0 ) || ( k < n))
+            {
+                k += n + 1;
+            }
+            if (k == 0) return 0;
+
+            for (int j = 0; j < n; j++)
+                vec[i + j], vec[k + j] = vec[k + j], vec[i + j];
+        }
+
         double a = vec[i];
         for (int j = i + 1; j < n; j++)
         {

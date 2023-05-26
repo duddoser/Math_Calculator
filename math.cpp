@@ -240,14 +240,15 @@ Matrix<T> pseudoInverseMatrix(Matrix<T>& coef_matrix)
 
 
 template <class T>
-vector<T> getSolutionRG(Matrix<T>& tr_matrix) {
-    vector<T> res;
+vector<string> getSolutionRG(Matrix<T>& tr_matrix) {
+    vector<string> res;
     int n = tr_matrix.h(), i;
     int w = tr_matrix.w();
     for (i = 0; i < n; i++) {
-        res.push_back(tr_matrix[i][w - 1] );
+        string a = "";
+        a = "x" + to_string(i + 1) + " = " + to_string(tr_matrix[i][w - 1]);
+        res.push_back(a);
     }
-    return res;
 }
 
 
@@ -322,36 +323,39 @@ void underReverseGauss(Matrix<T>& tr_matrix, Matrix<T>& const_values, int rank =
 }
 
 template <class T>
-void getSolutionURG(Matrix<T>& const_terms) {
+vector<string> getSolutionURG(Matrix<T>& const_terms) {
+    vectro<string> res;
     int n = const_terms.h(), i, k;
     int w = const_terms.w();
     bool first_in_row = true;
     for (i = 0; i < n; i++) {
+        string a = "";
         first_in_row = true;
-        cout << "x" << i + 1 << " = ";
+        a = "x" + to_string(i + 1) + " = ";
         for (k = 0; k < w - 1; k++) {
             if (!first_in_row) {
                 if (const_terms[i][k] > 0) {
-                    cout << "+ ";
+                    a += "+ ";
                 }
             }
             if (const_terms[i][k] != 0) {
                 if (const_terms[i][k] != 1)
-                    cout << const_terms[i][k] << "*C" << k + 1 << " ";
+                    a = a + to_string(const_terms[i][k]) + "*C" + to_string(k + 1) + " ";
                 else
-                    cout << "C" << k + 1 << " ";
+                    a = a + "C" + to_string(k + 1) + " ";
                 first_in_row = false;
             }
 
         }
         if (!first_in_row) {
-            if (const_terms[i][w - 1] > 0) cout << "+ ";
+            if (const_terms[i][w - 1] > 0) a += "+ ";
         }
         if (const_terms[i][w - 1] != 0)
-            cout << const_terms[i][w - 1];
-        cout << "\n";
+            a += to_string(const_terms[i][w - 1]);
+        res.push_back(a);
+        
     }
-    cout << "Where Ci are const values\n";
+    return res;
 }
 
 // Решение системы линейных уравнений
@@ -410,10 +414,9 @@ int sleCalculator(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T null_el)
 }
 
 template<class T>
-vector<T> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T null_el)
+vector<string> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T null_el)
 {
-    vector<T> res;
-
+    vector<string> res;
     //  Строим расширенную матрицу, приводим ее к верхне-треугольному виду
     Matrix<T> exp_matrix = coef_matrix.concateMatrix(const_terms);
     Matrix<T> triangular_matrix = gauss(exp_matrix);
@@ -458,13 +461,15 @@ vector<T> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T nu
 
     //  Система совместна и не определена - имеет бесконечное множество решений
     if (rank < coef_matrix.w()) {
-        cout << "endless solution" << "\n";
+        Matrix<T> const_values(coef_matrix.w(), triangular_matrix.w() - rank, null_el);
+        underReverseGauss(triangular_matrix, const_values, rank);
+        res = getSolutionURG(const_values);
         return res;
     }
 }
 
 
-vector<Fraction> slau(int n, int m, vector<double> B, vector<double> A) //n - количество строк и соотв количество элементов в B; m - столбцы; A -матрица; B - свободные коэф
+vector<string> slau(int n, int m, vector<double> B, vector<double> A) //n - количество строк и соотв количество элементов в B; m - столбцы; A -матрица; B - свободные коэф
 {
     int v, eq, i, p;
     vector<Fraction> f;
@@ -526,7 +531,7 @@ int main()
 {
     vector <double> a = {1, 2, 0, 1};
     vector <double> b = { 3,1 };
-    vector<Fraction> res = slau(2,2,b,a);
+    vector<string> res = slau(2,2,b,a);
     for (int i = 0; i < res.size(); i++)
         cout << res[i];
 }

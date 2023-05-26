@@ -1,4 +1,4 @@
-﻿#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 #include "Fraction.cpp"
 #include "Matrix.cpp"
 
@@ -69,17 +69,17 @@ double lin_ur(double a, double b) //ax+b=0
     return (-b / a);
 }
 
-vector<double> cv_ur(double a, double b, double c) //ax^2+bx+c=0
+vector<string> cv_ur(double a, double b, double c) //ax^2+bx+c=0
 {
     double x1, x2;
     int n;
-    vector<double> res;
+    vector<string> res;
     double D = (b * b - 4 * a * c);
     if (D == 0)
     {
         x1 = (-b / (2 * a));
         n = 1;
-        res.push_back(x1);
+        res.push_back(to_string(x1));
     }
 
     if (D > 0)
@@ -88,8 +88,8 @@ vector<double> cv_ur(double a, double b, double c) //ax^2+bx+c=0
         x1 = (-b + Ds) / (2 * a);
         x2 = (-b - Ds) / (2 * a);
         n = 2;
-        res.push_back(x1);
-        res.push_back(x2);
+        res.push_back(to_string(x1));
+        res.push_back(to_string(x2));
     }
 
     //if (D < 0)
@@ -539,3 +539,4 @@ int main()
     for(int i=0;i<res.size();i++)
         cout << res[i] <<endl;
 }
+

@@ -33,6 +33,8 @@ double division(double a, double b)
     //else
 }
 
+//сашка если что функции sin(), cos(), exp(), log(), log10(), pow(a,b), abs(), sqrt() юзай
+
 int factorial(int a)
 {
     int res = 1;
@@ -99,16 +101,17 @@ double det(int n, vector<double> mat) //определитель только д
     double res = 1;
     vector<double> vec = mat;
     
-    for (int i = 0; i < n; i=i+n+1)
+    for (int i = 0; i < n; i = i + n + 1)
     {
         if (vec[i] == 0) continue;
         double a = vec[i];
-        for (int j = i+1; j < n; j++)
+        for (int j = i + 1; j < n; j++)
         {
+            double b = vec[j * n + i];
             vec[j * n + i] = 0;
-            for (int k = i+1; k < n; k++)
+            for (int k = i + 1; k < n; k++)
             {
-                vec[j * n + k] -= vec[i * n + k] / a;
+                vec[j * n + k] -= (vec[i * n + k] / a) * b;
             }
         }
     }
@@ -121,7 +124,8 @@ double det(int n, vector<double> mat) //определитель только д
 
 int main()
 {
-    vector <double> a = {3, 2, 0, 1};
-    cout<< det (2,a);
+    vector <double> a = {3, 2, 15, 1};
+   
+    cout << det(2, a);
 }
 

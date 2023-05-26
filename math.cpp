@@ -2,9 +2,6 @@
 #include "Fraction.cpp"
 #include "Matrix.cpp"
 
-
-
-
 using namespace std;
 
 int n = 10; //это для рядов ^^
@@ -95,7 +92,7 @@ vector<double> cv_ur(double a, double b, double c) //ax^2+bx+c=0
         res.push_back(x2);
     }
 
-    //if (D < 0) 
+    //if (D < 0)
     return res;
 }
 
@@ -103,7 +100,7 @@ double det(int n, vector<double> mat) //определитель только д
 {
     double res = 1;
     vector<double> vec = mat;
-    
+
     for (int i = 0; i < n; i = i + n + 1)
     {
         if (vec[i] == 0)
@@ -138,7 +135,12 @@ double det(int n, vector<double> mat) //определитель только д
 
 //лизины СЛАУ начинаются
 
-
+string to_string(Fraction f)
+{
+    string a="";
+    a = to_string(f.n())+"/"+to_string(f.d());
+    return a;
+}
 
 // Нахождение ранга верхне-треугольной матрицы
 template <class T>
@@ -249,6 +251,7 @@ vector<string> getSolutionRG(Matrix<T>& tr_matrix) {
         a = "x" + to_string(i + 1) + " = " + to_string(tr_matrix[i][w - 1]);
         res.push_back(a);
     }
+    return res;
 }
 
 
@@ -324,7 +327,7 @@ void underReverseGauss(Matrix<T>& tr_matrix, Matrix<T>& const_values, int rank =
 
 template <class T>
 vector<string> getSolutionURG(Matrix<T>& const_terms) {
-    vectro<string> res;
+    vector<string> res;
     int n = const_terms.h(), i, k;
     int w = const_terms.w();
     bool first_in_row = true;
@@ -353,7 +356,7 @@ vector<string> getSolutionURG(Matrix<T>& const_terms) {
         if (const_terms[i][w - 1] != 0)
             a += to_string(const_terms[i][w - 1]);
         res.push_back(a);
-        
+
     }
     return res;
 }
@@ -466,6 +469,7 @@ vector<string> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms,
         res = getSolutionURG(const_values);
         return res;
     }
+    return res;
 }
 
 
@@ -503,7 +507,7 @@ double inegral(double a, double b)//a - нижний предел; b - верх�
 {
     double h = 0.01;
     double Integral;
-    double n; 
+    double n;
     n = (b - a) / h;
 
     Integral = 0.0;
@@ -532,7 +536,6 @@ int main()
     vector <double> a = {1, 2, 0, 1};
     vector <double> b = { 3,1 };
     vector<string> res = slau(2,2,b,a);
-    for (int i = 0; i < res.size(); i++)
-        cout << res[i];
+    for(int i=0;i<res.size();i++)
+        cout << res[i] <<endl;
 }
-

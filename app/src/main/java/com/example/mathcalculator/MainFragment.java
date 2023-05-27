@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainFragment extends Fragment implements View.OnClickListener {
     private View view;
     private TextView text_view_output;
+    private EditText edit_text_input;
     private FloatingActionButton btn_matrix;
 
     public MainFragment() {
@@ -46,6 +48,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         btn_matrix = view.findViewById(R.id.fab);
         btn_matrix.setOnClickListener(this);
+
+        edit_text_input = view.findViewById(R.id.et_input);
+        edit_text_input.setShowSoftInputOnFocus(false);
         return view;
     }
 

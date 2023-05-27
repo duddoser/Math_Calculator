@@ -2,5 +2,10 @@
     <string name="app_name">MathCalculator</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="label">label</string>
+    <string name="label">Input</string>
+    <string name="dialog_input">Enter matrix values:</string>
+    <string name="height">Height: </string>
+    <string name="width">Width: </string>
+    <string name="determinant">Determinant</string>
+    <string name="sole">SOLE</string>
 </resources>

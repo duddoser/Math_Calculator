@@ -6,12 +6,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationHost {
+
+    static {
+       System.loadLibrary("mathcalculator");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         if (savedInstanceState == null){
             navigateTo(new MainFragment(), false);

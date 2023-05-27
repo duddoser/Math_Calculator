@@ -17,10 +17,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MatrixFragment extends Fragment implements CustomDialogInterface, View.OnClickListener {
     private View view;
     private int height, width;
     private Button btnDeterminant, btnSole;
+    private ArrayList<EditText> etArray = new ArrayList<>();
 
     public MatrixFragment() {
         // Required empty public constructor
@@ -60,6 +64,7 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             for (int j = 0; j < width; j++) {
                 EditText cell = new EditText(this.getContext());
+                etArray.add(i * width + j, cell);
                 cell.setBackground(null);
                 cell.setText("0");
                 row.addView(cell);
@@ -81,7 +86,55 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
     public void onClick(View v) {
         if (v == btnDeterminant) {
             TextView textViewDet = view.findViewById(R.id.tv_det_res);
-            textViewDet.setText("Determinant: ");
+            int [][] mat = new int[height][width];
+            int k = 0;
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) {
+                    mat[i][j] = Integer.parseInt(etArray.get(k).getText().toString());
+                    k++;
+                }
+            }
+            
+            double result = Algorithms.determinantOfMatrix(mat, height);
+            textViewDet.setText("Determinant: " + result);
+            
+        } else if (v == btnSole) {
+            double [][] mat = new double[height][width];
+            int k = 0;
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) {
+                    mat[i][j] = Integer.parseInt(etArray.get(k).getText().toString());
+                    k++;
+                }
+            }
+
+            double[] x = new double[100];
+
+            Algorithms.partialPivot(mat, height);
+            Algorithms.backSubstitute(mat, height, x);
+
+            TextView textView1 = view.findViewById(R.id.x1);
+            TextView textView2 = view.findViewById(R.id.x2);
+            TextView textView3 = view.findViewById(R.id.x3);
+            TextView textView4 = view.findViewById(R.id.x4);
+            TextView textView5 = view.findViewById(R.id.x5);
+            TextView textView6 = view.findViewById(R.id.x6);
+            TextView textView7 = view.findViewById(R.id.x7);
+
+            HashMap<Integer, TextView> text_views = new HashMap<>();
+            text_views.put(0, textView1);
+            text_views.put(1, textView2);
+            text_views.put(2, textView3);
+            text_views.put(3, textView4);
+            text_views.put(4, textView5);
+            text_views.put(5, textView6);
+            text_views.put(6, textView7);
+
+            for (int i = 0; i < height; i++) {
+                text_views.get(i).setText(Double.toString(x[i]));
+            }
+
+//            ArrayList<String> = slau();
         }
     }
 }

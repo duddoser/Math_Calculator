@@ -60,10 +60,7 @@ public class DialogFragmentMatrix extends DialogFragment {
         EditText h = (EditText) view.findViewById(R.id.ed_height);
         int height = Integer.parseInt(h.getText().toString());
 
-        EditText w = (EditText) view.findViewById(R.id.ed_width);
-        int width = Integer.parseInt(w.getText().toString());
-
-        Pair<Integer, Integer> pair = new Pair<>(height, width);
+        Pair<Integer, Integer> pair = new Pair<>(height, height);
         dialog.dismiss();
         customDialogInterface.okButtonClicked(pair);
     }

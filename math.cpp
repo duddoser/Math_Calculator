@@ -64,9 +64,11 @@ double ch(double a)
     return((exp(a) + exp(-a)) / 2);
 }
 
-double lin_ur(double a, double b) //ax+b=0
+string lin_ur(double a, double b) //ax+b=0
 {
-    return (-b / a);
+    if (a == 0)
+        return ("const");
+    return (to_string(-b / a));
 }
 
 vector<string> cv_ur(double a, double b, double c) //ax^2+bx+c=0

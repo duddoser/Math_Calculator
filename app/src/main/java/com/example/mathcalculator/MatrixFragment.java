@@ -10,14 +10,17 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 
-public class MatrixFragment extends Fragment implements CustomDialogInterface {
+public class MatrixFragment extends Fragment implements CustomDialogInterface, View.OnClickListener {
     private View view;
     private int height, width;
+    private Button btnDeterminant, btnSole;
 
     public MatrixFragment() {
         // Required empty public constructor
@@ -41,6 +44,11 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface {
         view = inflater.inflate(R.layout.fragment_matrix, container, false);
         DialogFragment fragment = new DialogFragmentMatrix(this);
         fragment.show(getFragmentManager(), "dialog");
+
+        btnDeterminant = view.findViewById(R.id.determinant);
+        btnSole = view.findViewById(R.id.sole);
+        btnDeterminant.setOnClickListener(this);
+        btnSole.setOnClickListener(this);
         return view;
     }
 
@@ -52,6 +60,7 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             for (int j = 0; j < width; j++) {
                 EditText cell = new EditText(this.getContext());
+                cell.setBackground(null);
                 cell.setText("0");
                 row.addView(cell);
             }
@@ -66,5 +75,13 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface {
         width = (int) value.second;
         Log.e("AAAAA", Integer.toString(height));
         generateMatrix();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnDeterminant) {
+            TextView textViewDet = view.findViewById(R.id.tv_det_res);
+            textViewDet.setText("Determinant: ");
+        }
     }
 }

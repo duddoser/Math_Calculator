@@ -21,6 +21,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:id="@+id/tv_det_res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="20sp"
+        android:layout_marginTop="360dp"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,5 +64,47 @@
             android:backgroundTint="@color/elements_background"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="360dp"
+        android:layout_centerHorizontal="true">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/x1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/x2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/x3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/x4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/x5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/x6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/x7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 </RelativeLayout>

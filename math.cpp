@@ -96,39 +96,39 @@ vector<string> cv_ur(double a, double b, double c) //ax^2+bx+c=0
     return res;
 }
 
-double det(int n, vector<double> mat) //определитель только для квадратных матриц размера n
+double det(int n, vector<vector<double>> mat) //определитель только для квадратных матриц размера n
 {
     double res = 1;
-    vector<double> vec = mat;
+    vector<vector<double>> vec = mat;
 
-    for (int i = 0; i < n; i = i + n + 1)
+    for (int i = 0; i < n; i++)
     {
-        if (vec[i] == 0)
+        if (vec[i][i] == 0)
         {
             int k = i;
-            while ((vec[k] == 0 ) || ( k < n))
+            while ((vec[k][k] == 0 ) || ( k < n))
             {
-                k += n + 1;
+                k++;
             }
-            if (k == 0) return 0;
+            if (k == n) return 0;
 
             for (int j = 0; j < n; j++)
-                vec[i + j], vec[k + j] = vec[k + j], vec[i + j];
+                vec[i][j], vec[k][j] = vec[k][j], vec[i][j];
         }
 
-        double a = vec[i];
+        double a = vec[i][i];
         for (int j = i + 1; j < n; j++)
         {
-            double b = vec[j * n + i];
-            vec[j * n + i] = 0;
+            double b = vec[j][i];
+            vec[j][i] = 0;
             for (int k = i + 1; k < n; k++)
             {
-                vec[j * n + k] -= (vec[i * n + k] / a) * b;
+                vec[j][k] -= (vec[i][k] / a) * b;
             }
         }
     }
 
-    for (int i = 0; i < n; i++) res *= vec[i * n + i];
+    for (int i = 0; i < n; i++) res *= vec[i][i];
 
     return res;
 }
@@ -473,7 +473,7 @@ vector<string> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms,
 }
 
 
-vector<string> slau(int n, int m, vector<double> B, vector<double> A) //n - количество строк и соотв количество элементов в B; m - столбцы; A -матрица; B - свободные коэф
+vector<string> slau(int n, int m, vector<double> B, vector<vector<double>> A) //n - количество строк и соотв количество элементов в B; m - столбцы; A -матрица; B - свободные коэф
 {
     int v, eq, i, p;
     vector<Fraction> f;
@@ -481,9 +481,11 @@ vector<string> slau(int n, int m, vector<double> B, vector<double> A) //n - ко
     Fraction null_el(0);
 
     v = m; eq = n;
-    for (i = 0; i < v * eq; i++) {
-        Fraction el(int(A[i]*drob), drob);
-        f.push_back(el);
+    for (i = 0; i < eq; i++) {
+        for(int j=0;j<v;j++) {
+            Fraction el(int(A[i][j] * drob), drob);
+            f.push_back(el);
+        }
     }
     Matrix<Fraction> M(eq, v, f);
 
@@ -533,7 +535,7 @@ double proizvodnaya(double x) // точка, в которой вычисляе�
 
 int main()
 {
-    vector <double> a = {1, 2, 0, 1};
+    vector <vector<double>> a = {{1, 2}, {0, 1}};
     vector <double> b = { 3,1 };
     vector<string> res = slau(2,2,b,a);
     for(int i=0;i<res.size();i++)

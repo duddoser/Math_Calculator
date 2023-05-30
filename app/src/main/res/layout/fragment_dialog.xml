@@ -29,6 +29,7 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/height"
+                android:inputType="number"
                 android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>

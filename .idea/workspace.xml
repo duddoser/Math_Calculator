@@ -10,32 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce5a6be8-275f-4db1-bc9b-fdc4c6652447" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/cpp/Fraction.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/cpp/native_lib.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/Algorithms.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/NdkManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fab2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/MathCalculator.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/MathCalculator.app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/MathCalculator.app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/MathCalculator.app.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Fraction.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matrix.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/Matrix.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matrix_Exception.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/Matrix_Exception.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/DialogFragmentMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/DialogFragmentMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/MainFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/MainFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/MatrixFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mathcalculator/MatrixFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_dialog.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/math.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/math.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[cd64f24]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -102,19 +88,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "C:/Users/truew/AndroidStudioProjects/MathCalculator/app/src/main/res/drawable",
-    "project.structure.last.edited": "Variables",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C/C++"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/truew/AndroidStudioProjects/MathCalculator/app/src/main/res/drawable&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Variables&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C/C++&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.mathcalculator" />

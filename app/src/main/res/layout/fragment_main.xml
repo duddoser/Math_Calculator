@@ -90,7 +90,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_skobka"
+                android:id="@+id/btn_main_0"
                 android:textColor="@color/main"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -101,7 +101,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_7"
+                android:id="@+id/btn_main_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -112,7 +112,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_8"
+                android:id="@+id/btn_main_2"
                 android:layout_width="0dp"
                 android:textColor="@color/main"
                 android:layout_height="match_parent"
@@ -123,7 +123,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_9"
+                android:id="@+id/btn_main_3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -134,7 +134,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_del"
+                android:id="@+id/btn_main_4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -153,7 +153,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_skobka2"
+                android:id="@+id/btn_main_5"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -164,7 +164,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_4"
+                android:id="@+id/btn_main_6"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -175,7 +175,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_5"
+                android:id="@+id/btn_main_7"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -186,7 +186,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_6"
+                android:id="@+id/btn_main_8"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -197,7 +197,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_mult"
+                android:id="@+id/btn_main_9"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -217,7 +217,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_x"
+                android:id="@+id/btn_main_10"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -228,7 +228,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_1"
+                android:id="@+id/btn_main_11"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -239,7 +239,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_2"
+                android:id="@+id/btn_main_12"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -250,7 +250,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_3"
+                android:id="@+id/btn_main_13"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -261,7 +261,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_minus"
+                android:id="@+id/btn_main_14"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"
@@ -280,7 +280,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_power"
+                android:id="@+id/btn_main_15"
                 android:layout_width="0dp"
                 android:textColor="@color/main"
                 android:layout_height="match_parent"
@@ -291,7 +291,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_0"
+                android:id="@+id/btn_main_16"
                 android:layout_width="0dp"
                 android:textColor="@color/main"
                 android:layout_height="match_parent"
@@ -302,18 +302,18 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_zapyt"
-                android:layout_width="0dp"
+                android:id="@+id/btn_main_17"
                 android:textColor="@color/main"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_width="0dp"
                 android:text=","
                 android:textSize="46sp"
                 />
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_equal"
+                android:id="@+id/btn_main_18"
                 android:textColor="@color/main"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -324,7 +324,7 @@
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
-                android:id="@+id/btn_sum"
+                android:id="@+id/btn_main_19"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/main"

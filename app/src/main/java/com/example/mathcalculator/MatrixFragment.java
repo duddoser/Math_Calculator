@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -65,6 +66,7 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
             for (int j = 0; j < width; j++) {
                 EditText cell = new EditText(this.getContext());
                 etArray.add(i * width + j, cell);
+                cell.setInputType(InputType.TYPE_CLASS_NUMBER);
                 cell.setBackground(null);
                 cell.setText("0");
                 row.addView(cell);

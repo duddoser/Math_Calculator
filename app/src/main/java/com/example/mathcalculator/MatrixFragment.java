@@ -2,23 +2,28 @@ package com.example.mathcalculator;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
 import android.util.Log;
 import android.util.Pair;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,8 +72,10 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
             row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             for (int j = 0; j < width; j++) {
+//                TextInputEditText cell = generateTextField();
                 EditText cell = new EditText(this.getContext());
                 etArray.add(i * width + j, cell);
+                // не воспринимает числа с плавающей точкой
                 cell.setInputType(InputType.TYPE_CLASS_NUMBER);
                 cell.setBackground(null);
                 cell.setText("0");
@@ -77,7 +84,26 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
             table.addView(row, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT));
         }
+
+//        ImageView bracket_left = view.findViewById(R.id.bracket_left);
+//        ImageView bracket_right = view.findViewById(R.id.bracket_right);
+//
+//        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(10, 20 + etArray.get(0).getHeight() * height);
+//        bracket_left.setLayoutParams(parms);
+//        bracket_right.setLayoutParams(parms);
+
     }
+
+//    protected TextInputEditText generateTextField() {
+//        TextInputLayout textInputLayout = new TextInputLayout(new ContextThemeWrapper(getContext(),
+//                R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox));
+//        textInputLayout.setBoxBackgroundColor(ContextCompat.getColor(getContext(),
+//                android.R.color.white));
+//        textInputLayout.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE);
+//
+//        TextInputEditText editText = new TextInputEditText(textInputLayout.getContext());
+//        return editText;
+//    }
 
     @Override
     public void okButtonClicked(Pair<Integer, Integer> value) {

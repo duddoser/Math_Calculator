@@ -18,6 +18,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,6 +49,7 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_matrix, container, false);
+
         DialogFragment fragment = new DialogFragmentMatrix(this);
         fragment.show(getFragmentManager(), "dialog");
 

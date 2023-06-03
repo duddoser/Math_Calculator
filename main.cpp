@@ -96,39 +96,40 @@ vector<string> cv_ur(double a, double b, double c) //ax^2+bx+c=0
     return res;
 }
 
-double det(int n, vector<vector<double>> mat) //определитель только для квадратных матриц размера n
+double det(int n, double* mat) //определитель только для квадратных матриц размера n
 {
     double res = 1;
-    vector<vector<double>> vec = mat;
+    double *vec = new double[n*n];
+    for(int i=0;i<n*n;i++) vec[i] = mat[i];
 
     for (int i = 0; i < n; i++)
     {
-        if (vec[i][i] == 0)
+        if (vec[i*n+i] == 0)
         {
             int k = i;
-            while ((vec[k][k] == 0 ) || ( k < n))
+            while ((vec[k*n+k] == 0 ) || ( k < n))
             {
                 k++;
             }
             if (k == n) return 0;
 
             for (int j = 0; j < n; j++)
-                vec[i][j], vec[k][j] = vec[k][j], vec[i][j];
+                vec[i*n+j], vec[k*n+j] = vec[k*n+j], vec[i*n+j];
         }
 
-        double a = vec[i][i];
+        double a = vec[i*n+i];
         for (int j = i + 1; j < n; j++)
         {
-            double b = vec[j][i];
-            vec[j][i] = 0;
+            double b = vec[j*n+i];
+            vec[j*n+i] = 0;
             for (int k = i + 1; k < n; k++)
             {
-                vec[j][k] -= (vec[i][k] / a) * b;
+                vec[j*n+k] -= (vec[i*n+k] / a) * b;
             }
         }
     }
 
-    for (int i = 0; i < n; i++) res *= vec[i][i];
+    for (int i = 0; i < n; i++) res *= vec[i*n+i];
 
     return res;
 }
@@ -579,7 +580,7 @@ vector<string> slau(int n, int m, vector<double> B, vector<vector<double>> A) //
     return sleCalculator_vec(M, b, null_el);
 }
 */
-char **slau_char(int n, int m, vector<double> B, vector<vector<double>> A)
+char **slau_char(int n, int m, double* B, double* A)
 {
     int v, eq, i, p;
     vector<Fraction> f;
@@ -589,7 +590,7 @@ char **slau_char(int n, int m, vector<double> B, vector<vector<double>> A)
     v = m; eq = n;
     for (i = 0; i < eq; i++) {
         for(int j=0;j<v;j++) {
-            Fraction el(int(A[i][j] * drob), drob);
+            Fraction el(int(A[i*n+j] * drob), drob);
             f.push_back(el);
         }
     }

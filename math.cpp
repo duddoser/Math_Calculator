@@ -64,11 +64,9 @@ double ch(double a)
     return((exp(a) + exp(-a)) / 2);
 }
 
-string lin_ur(double a, double b) //ax+b=0
+double lin_ur(double a, double b) //ax+b=0
 {
-    if (a == 0)
-        return ("const");
-    return (to_string(-b / a));
+    return (-b / a);
 }
 
 vector<string> cv_ur(double a, double b, double c) //ax^2+bx+c=0
@@ -98,602 +96,50 @@ vector<string> cv_ur(double a, double b, double c) //ax^2+bx+c=0
     return res;
 }
 
-double det(int n, vector<vector<double>> mat) //определитель только для квадратных матриц размера n
+double det(int n, double* mat) //определитель только для квадратных матриц размера n
 {
     double res = 1;
-    vector<vector<double>> vec = mat;
+    double *vec = new double[n*n];
+    for(int i=0;i<n*n;i++) vec[i] = mat[i];
 
     for (int i = 0; i < n; i++)
     {
-        if (vec[i][i] == 0)
+        if (vec[i*n+i] == 0)
         {
             int k = i;
-            while ((vec[k][k] == 0 ) || ( k < n))
+            while ((vec[k*n+k] == 0 ) || ( k < n))
             {
                 k++;
             }
             if (k == n) return 0;
 
             for (int j = 0; j < n; j++)
-                vec[i][j], vec[k][j] = vec[k][j], vec[i][j];
+                vec[i*n+j], vec[k*n+j] = vec[k*n+j], vec[i*n+j];
         }
 
-        double a = vec[i][i];
+        double a = vec[i*n+i];
         for (int j = i + 1; j < n; j++)
         {
-            double b = vec[j][i];
-            vec[j][i] = 0;
+            double b = vec[j*n+i];
+            vec[j*n+i] = 0;
             for (int k = i + 1; k < n; k++)
             {
-                vec[j][k] -= (vec[i][k] / a) * b;
+                vec[j*n+k] -= (vec[i*n+k] / a) * b;
             }
         }
     }
 
-    for (int i = 0; i < n; i++) res *= vec[i][i];
+    for (int i = 0; i < n; i++) res *= vec[i*n+i];
 
     return res;
 }
 
 //лизины СЛАУ начинаются
 
-int64_t gcd(int64_t a, int64_t b) {
-    return b != 0 ? gcd(b, a % b) : a;
-}
-
-class Fraction
-{
-protected:
-    int64_t num;
-    int64_t denom;
-public:
-    Fraction() {
-        num = 0;
-        denom = 1;
-    }
-
-    Fraction(int64_t n) {
-        num = n;
-        denom = 1;
-    }
-
-    Fraction(int64_t n, int64_t d) {
-        num = n;
-        if (d < 0) num *= -1;
-        if (d != 0) denom = abs(d);
-    }
-
-    Fraction(const Fraction& f) {
-        num = f.num;
-        denom = f.denom;
-    }
-
-    int n() const {
-        return num;
-    }
-
-    void set_n(int64_t n) {
-        num = n;
-    }
-
-    int d() const {
-        return denom;
-    }
-
-    void set_d(int64_t d) {
-        denom = d;
-    }
-
-    Fraction& operator=(Fraction const& f) {
-        num = f.num;
-        denom = f.denom;
-        return *this;
-    }
-
-
-    //  унарный -
-    Fraction operator-() const {
-        Fraction result(0, 1);
-        result.num = -1 * num;
-        result.denom = denom;
-        return result;
-    }
-
-    Fraction operator*(int64_t m) const {
-        Fraction result(0, 1);
-        result.num = num * m;
-        result.denom = denom;
-        int64_t com_factor = gcd(abs(m), denom);
-        result.num /= com_factor;
-        result.denom /= com_factor;
-        return result;
-    }
-
-    Fraction operator*(const Fraction& f) const {
-        Fraction result(0, 1);
-        result.num = num * f.num;
-        result.denom = denom * f.denom;
-        int64_t com_factor = gcd(abs(result.num), result.denom);
-        result.num /= com_factor;
-        result.denom /= com_factor;
-        return result;
-    }
-
-    Fraction operator/(const Fraction& f) const {
-        Fraction result(0, 1);
-        if (f.num < 0) result.num = f.denom * (-1);
-        else result.num = f.denom;
-        result.denom = abs(f.num);
-        return *this * result;
-    }
-
-
-    Fraction operator+(const Fraction& f) const {
-        Fraction result(0, 1);
-        result.num = num * f.denom + f.num * denom;
-        result.denom = denom * f.denom;
-        int64_t com_factor = gcd(abs(result.num), result.denom);
-        result.num /= com_factor;
-        result.denom /= com_factor;
-        return result;
-    }
-
-    Fraction& operator+=(Fraction const& f) {
-        Fraction result(*this + f);
-        num = result.num;
-        denom = result.denom;
-        return *this;
-    }
-
-    Fraction& operator/=(Fraction const& f) {
-        Fraction result;
-        result = *this / f;
-        num = result.num;
-        denom = result.denom;
-        return *this;
-    }
-
-    Fraction operator-(const Fraction& f) const {
-        Fraction result(0, 1);
-        result.num = -1 * f.num;
-        return *this + f;
-    }
-
-
-    bool operator==(const Fraction& f) const {
-        return num == f.num && denom == f.denom;
-    }
-
-    bool operator!=(const Fraction& f) const {
-        return !(*this == f);
-    }
-
-    bool operator==(const int& i) const {
-        return num == denom * i;
-    }
-
-    bool operator>(const Fraction& f) const {
-        return num * f.denom > denom * f.num;
-    }
-
-    bool operator<(const Fraction& f) const {
-        return !(*this > f || *this == f);
-    }
-
-    bool operator<(const double& d) const {
-        return num < d* denom;
-    }
-
-    friend Fraction operator*(int64_t m, const Fraction& f);
-    friend ostream& operator<<(ostream& s, Fraction& f);
-
-};
-
-
-Fraction operator*(int64_t m, const Fraction& f) {
-    return f * m;
-}
-
-ostream& operator<<(ostream& s, Fraction& f) {
-    if (f.num == 0)
-        s << 0;
-    else {
-        if (f.denom == 1)
-            s << f.num;
-        else
-            s << f.num << "/" << f.denom;
-    }
-}
-
-Fraction abs(Fraction& f1) {
-    Fraction result;
-    result.set_n(abs(f1.n()));
-    result.set_d(f1.d());
-    return result;
-}
-
-
-using namespace std;
-template<class T> class Matrix {
-protected:
-    T** ptr;
-    int height;
-    int width;
-public:
-    Matrix(int Height = 2, int Width = 2) {
-        //конструктор
-        height = Height;
-        width = Width;
-        ptr = new T * [height];
-        for (int i = 0; i < height; i++)
-            ptr[i] = new T[width];
-    }
-
-    Matrix(const Matrix& M) {
-        //конструктор копий
-        height = M.height;
-        width = M.width;
-        ptr = new T * [height];
-        for (int i = 0; i < height; i++) {
-            ptr[i] = new T[width];
-            for (int j = 0; j < width; j++)
-                ptr[i][j] = M.ptr[i][j];
-        }
-
-    }
-
-    Matrix(int H, int W, vector<T> array)
-    {
-        height = H;
-        width = W;
-        ptr = new T * [height];
-        for (int i = 0; i < height; i++)
-        {
-            ptr[i] = new T[width];
-            for (int j = 0; j < width; j++)
-                ptr[i][j] = array[i * width + j];
-        }
-    }
-
-    Matrix(int H, int W, T elem)
-    {
-        height = H;
-        width = W;
-        ptr = new T * [height];
-        for (int i = 0; i < height; i++)
-        {
-            ptr[i] = new T[width];
-            for (int j = 0; j < width; j++)
-                ptr[i][j] = elem;
-        }
-    }
-
-
-    Matrix(ifstream& ifs) {
-        //конструктор для чтения матриц из файла
-        ifs >> height;
-        ifs >> width;
-        ptr = new T * [height];
-        for (int i = 0; i < height; i++) {
-            ptr[i] = new T[width];
-            for (int j = 0; j < width; j++)
-                ifs >> ptr[i][j];
-        }
-    }
-
-    ~Matrix() {
-        //деструктор
-        if (ptr != NULL) {
-            for (int i = 0; i < height; i++)
-                delete[] ptr[i];
-            delete[] ptr;
-            ptr = NULL;
-        }
-    }
-
-    int h() {
-        return height;
-    }
-
-    int w() {
-        return width;
-    }
-
-    Matrix identityMatrix()
-    {
-        Matrix result(height, width);
-        for (int i = 0; i < height; i++)
-            result[i][i] = 1;
-        return result;
-    }
-
-    Matrix concateMatrix(Matrix& b)
-    {
-        if (height != b.h())
-            return Matrix();
-        Matrix result(height, width + b.w());
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++)
-                result[i][j] = ptr[i][j];
-            for (int j = 0; j < b.w(); j++)
-                result[i][j + width] = b[i][j];
-        }
-        return result;
-    }
-
-    Matrix& operator=(Matrix const& M) {
-        if (height == M.height && width == M.width) {
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++)
-                    ptr[i][j] = M.ptr[i][j];
-            }
-        }
-        else {
-            throw WrongDimensions("Unequal size of matrices in operator= ", height, width, M.height, M.width);
-        }
-        return *this;
-    }
-
-    T* operator[](int index) {
-        if (index < 0) {
-            throw NegativeIndex("Negative index in opeartor[] ", index, -1);
-        }
-        if (index >= height) {
-            throw TooWideIndex("Too wide index in operator[] ", index, -1);
-        }
-        else return ptr[index];
-    }
-
-    T& operator()(int index1, int index2) {
-        if (index1 < 0 || index2 < 0) {
-            throw NegativeIndex("Negative index in operator() ", index1, -1);
-        }
-        if (index1 >= height || index2 >= height) {
-            throw TooWideIndex("Too wide index in operator() ", index1, -1);
-        }
-        else return ptr[index1][index2];
-    }
-
-    Matrix operator+() {
-        // унарный плюс - транспонирование
-        Matrix<T> Result(width, height);
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                Result.ptr[j][i] = ptr[i][j];
-            }
-        }
-        return Result;
-    }
-
-    Matrix operator+(Matrix M) {
-        if (width != M.width || height != M.height) {
-            throw WrongDimensions("Unequal size of matrices: ", height, width, M.height, M.width);
-        }
-        else {
-            Matrix<T> Result(height, width);
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    Result.ptr[i][j] = ptr[i][j] + M.ptr[i][j];
-                }
-            }
-            return Result;
-        }
-    }
-
-    Matrix operator*(Matrix M) {
-        if (width != M.height) {
-            throw WrongDimensions("Unequal size of matrices: ", height, width, M.height, M.width);
-        }
-        else {
-            Matrix<T> Result(height, M.width);
-            T cur_element;
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < M.width; j++) {
-                    cur_element = 0;
-                    for (int k = 0; k < width; k++)
-                        cur_element += ptr[i][k] * M.ptr[k][j];
-                    Result.ptr[i][j] = cur_element;
-                }
-            }
-            return Result;
-        }
-    }
-
-    template<class T1> friend ostream& operator<<(ostream& s, Matrix<T1> M);
-    template<class T1> friend istream& operator>>(istream& s, Matrix<T1>& M);
-
-};
-
-
-template<class T> ostream& operator<<(ostream& s, Matrix<T> M) {
-    if (typeid(s) == typeid(ofstream)) {
-        s << M.height << " " << M.width << " ";
-        s << "\n";
-    }
-    for (int i = 0; i < M.height; i++) {
-        for (int j = 0; j < M.width; j++) {
-            s << M.ptr[i][j] << " ";
-        }
-        s << "\n";
-    }
-
-    return s;
-}
-
-template<class T> istream& operator>>(istream& s, Matrix<T>& M) {
-    if (typeid(s) == typeid(ifstream)) {
-        int h, w;
-        s >> h >> w;
-        if (w != M.width || h != M.height) {
-            // При чтении из файла и несовпадении размеров матриц, очищаем выделенную памать
-            // и выделяем ее по новой
-            for (int i = 0; i < M.height; i++)
-                delete[] M.ptr[i];
-            delete[] M.ptr;
-            M.ptr = new T * [M.height];
-            for (int i = 0; i < M.height; i++)
-                M.ptr[i] = new T[M.width];
-        }
-    }
-    for (int i = 0; i < M.height; i++) {
-        for (int j = 0; j < M.width; j++) {
-            s >> M.ptr[i][j];
-        }
-    }
-    return s;
-}
-
-
-
-class Exception : public exception {
-protected:
-    //сообщение об ошибке
-    char* str;
-public:
-    Exception(const char* s) {
-        str = new char[strlen(s) + 1];
-        strcpy_s(str, strlen(s) + 1, s);
-    }
-    Exception(char* s) {
-        str = new char[strlen(s) + 1];
-        strcpy_s(str, strlen(s) + 1, s);
-    }
-    Exception() {
-        str = NULL;
-    }
-    Exception(const Exception& e) {
-        str = new char[strlen(e.str) + 1];
-        strcpy_s(str, strlen(e.str) + 1, e.str);
-    }
-    ~Exception() {
-        delete[] str;
-    }
-
-    virtual void print() {
-        cout << "Exception: " << str << "; " << what();
-    }
-};
-
-class IndexOutOfBounds : public Exception {
-protected:
-    int row_index; int col_index;
-public:
-    //конструктор
-    IndexOutOfBounds(char* s, int RowIndex, int ColIndex) : Exception(s) {
-        row_index = RowIndex; col_index = ColIndex;
-    }
-    IndexOutOfBounds(const char* s, int RowIndex, int ColIndex) : Exception(s) {
-        row_index = RowIndex; col_index = ColIndex;
-    }
-
-    IndexOutOfBounds(const IndexOutOfBounds& e) {
-        str = new char[strlen(e.str) + 1];
-        strcpy_s(str, strlen(e.str) + 1, e.str);
-        row_index = e.row_index; col_index = e.col_index;
-    }
-
-    virtual void print() {
-        cout << "IndexOutOfBounds: " << str << "; " << what();
-    }
-};
-
-class TooWideIndex : public IndexOutOfBounds {
-public:
-    //конструкторы
-    TooWideIndex(char* s, int RowIndex, int ColIndex) : IndexOutOfBounds(s, RowIndex, ColIndex) {}
-    TooWideIndex(const char* s, int RowIndex, int ColIndex) : IndexOutOfBounds(s, RowIndex, ColIndex) {}
-    TooWideIndex(const TooWideIndex& e) : IndexOutOfBounds(e) {}
-
-    virtual void print() {
-        cout << "TooWideIndex: " << str << row_index << " " << col_index << "; " << what();
-    }
-
-};
-
-class NegativeIndex : public IndexOutOfBounds {
-public:
-    //конструкторы
-    NegativeIndex(char* s, int RowIndex, int ColIndex) : IndexOutOfBounds(s, RowIndex, ColIndex) {}
-    NegativeIndex(const char* s, int RowIndex, int ColIndex) : IndexOutOfBounds(s, RowIndex, ColIndex) {}
-    NegativeIndex(const NegativeIndex& e) : IndexOutOfBounds(e) {}
-
-    virtual void print() {
-        cout << "NegativeIndex: " << str << row_index << " " << col_index << "; " << what();
-    }
-
-};
-
-class WrongDimensions : public Exception {
-protected:
-    int rows1; int cols1; int rows2; int cols2;
-
-public:
-    //конструктор
-    WrongDimensions(char* s, int Rows1, int Cols1, int Rows2, int Cols2) : Exception(s) {
-        rows1 = Rows1; cols1 = Cols1; rows2 = Rows2; cols2 = Cols2;
-    }
-
-    WrongDimensions(const char* s, int Rows1, int Cols1, int Rows2, int Cols2) : Exception(s) {
-        rows1 = Rows1; cols1 = Cols1; rows2 = Rows2; cols2 = Cols2;
-    }
-
-    WrongDimensions(const WrongDimensions& e) {
-        str = new char[strlen(e.str) + 1];
-        strcpy_s(str, strlen(e.str) + 1, e.str);
-        rows1 = e.rows1; cols1 = e.cols1; rows2 = e.rows2; cols2 = e.cols2;
-    }
-
-    virtual void print() {
-        cout << "WrongDimensions: " << str << "; " << what();
-    }
-};
-
-class WrongSize : public WrongDimensions {
-public:
-    //конструкторы
-    WrongSize(char* s, int Rows, int Cols) : WrongDimensions(s, Rows, Cols, 1, 1) {}
-    WrongSize(const char* s, int Rows, int Cols) : WrongDimensions(s, Rows, Cols, 1, 1) {}
-    WrongSize(const WrongSize& e) : WrongDimensions(e) {}
-
-    virtual void print() {
-        cout << "WrongSize: " << str << "; " << what();
-    }
-
-};
-
-// Добавим исключение, выпадающее в методах, которые написаны для матриц,
-// сотстоящих из чисел
-class NotANumber : public Exception {
-protected:
-    //  Название типа значений, которые лежат в многомерном массиве
-    const char* TypeName;
-public:
-    //конструктор
-    NotANumber(char* s, const char* type) : Exception(s) {
-        TypeName = type;
-    }
-    NotANumber(const char* s, const char* type) : Exception(s) {
-        TypeName = type;
-    }
-
-    NotANumber(const NotANumber& e) {
-        str = new char[strlen(e.str) + 1];
-        strcpy_s(str, strlen(e.str) + 1, e.str);
-        TypeName = e.TypeName;
-    }
-
-    virtual void print() {
-        cout << "NotANumber: " << str << "; " << what();
-    }
-};
-
 string to_string(Fraction f)
 {
     string a="";
-    if (f.d() == 1)
-        a = to_string(f.n());
-    else
-        a = to_string(f.n())+"/"+to_string(f.d());
+    a = to_string(f.n())+"/"+to_string(f.d());
     return a;
 }
 
@@ -797,16 +243,21 @@ Matrix<T> pseudoInverseMatrix(Matrix<T>& coef_matrix)
 
 
 template <class T>
-vector<string> getSolutionRG(Matrix<T>& tr_matrix) {
+char ** getSolutionRG(Matrix<T>& tr_matrix) {
     vector<string> res;
     int n = tr_matrix.h(), i;
     int w = tr_matrix.w();
+    char ** R;
+    R = new char*[n];
+    int t = 0;
     for (i = 0; i < n; i++) {
         string a = "";
         a = "x" + to_string(i + 1) + " = " + to_string(tr_matrix[i][w - 1]);
-        res.push_back(a);
+        t = 36;
+        R[i] = new char[t];
+        strcpy(R[i], a.c_str());
     }
-    return res;
+    return R;
 }
 
 
@@ -881,39 +332,57 @@ void underReverseGauss(Matrix<T>& tr_matrix, Matrix<T>& const_values, int rank =
 }
 
 template <class T>
-vector<string> getSolutionURG(Matrix<T>& const_terms) {
+char ** getSolutionURG(Matrix<T>& const_terms) {
     vector<string> res;
+    int t=0;
     int n = const_terms.h(), i, k;
     int w = const_terms.w();
+
+    char ** R;
+    R = new char*[n];
     bool first_in_row = true;
     for (i = 0; i < n; i++) {
         string a = "";
+        t=0;
         first_in_row = true;
         a = "x" + to_string(i + 1) + " = ";
+        t+= 21;
         for (k = 0; k < w - 1; k++) {
             if (!first_in_row) {
                 if (const_terms[i][k] > 0) {
                     a += "+ ";
+                    t +=2;
                 }
             }
             if (const_terms[i][k] != 0) {
-                if (const_terms[i][k] != 1)
+                if (const_terms[i][k] != 1) {
                     a = a + to_string(const_terms[i][k]) + "*C" + to_string(k + 1) + " ";
-                else
+                    t += 35;
+                }
+                else {
                     a = a + "C" + to_string(k + 1) + " ";
+                    t += 18;
+                }
                 first_in_row = false;
             }
 
         }
         if (!first_in_row) {
-            if (const_terms[i][w - 1] > 0) a += "+ ";
+            if (const_terms[i][w - 1] > 0) {
+                a += "+ ";
+                t += 2;
+            }
         }
         if (const_terms[i][w - 1] != 0)
+        {
             a += to_string(const_terms[i][w - 1]);
-        res.push_back(a);
+            t += 16;
+        }
+        R[i] = new char[t];
+        strcpy(R[i], a.c_str());
 
     }
-    return res;
+    return R;
 }
 
 // Решение системы линейных уравнений
@@ -970,7 +439,7 @@ int sleCalculator(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T null_el)
         return 0;
     }
 }
-
+/*
 template<class T>
 vector<string> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T null_el)
 {
@@ -1026,8 +495,66 @@ vector<string> sleCalculator_vec(Matrix<T>& coef_matrix, Matrix<T>& const_terms,
     }
     return res;
 }
+*/
+template<class T>
+char ** sleCalculator_vec_char(Matrix<T>& coef_matrix, Matrix<T>& const_terms, T null_el)
+{
+    char **res;
+    res = new char * [coef_matrix.h()];
+    for (int i=0; i<coef_matrix.h();i++)
+        res[i] = new char[512];
 
+    //  Строим расширенную матрицу, приводим ее к верхне-треугольному виду
+    Matrix<T> exp_matrix = coef_matrix.concateMatrix(const_terms);
+    Matrix<T> triangular_matrix = gauss(exp_matrix);
 
+    //  Находим ранг верхне-треугольной матрицы
+    int rank = matrixRank(triangular_matrix);
+
+    bool is_null_row = true;
+    for (int j = 0; j < triangular_matrix.w() - 1; j++)
+        if (triangular_matrix[rank - 1][j] != 0)
+            is_null_row = false;
+
+    //  Если система несовместна, она не имеет решений либо существует приближенное решение
+    if (is_null_row && triangular_matrix[rank - 1][triangular_matrix.w() - 1] != 0) {
+        int width = coef_matrix.w();
+        if (rank > width) {
+            //      Проверяем, если в треугольной матрице матрица А имеет ранг равный числу неизвестных
+            is_null_row = true;
+            for (int j = 0; j < triangular_matrix.w() - 1; j++) {
+                if (triangular_matrix[width - 1][j] != 0)
+                    is_null_row = false;
+            }
+            if (!is_null_row) {
+                //        Находим псевдорешение
+                Matrix<T> pseudo_matrix(pseudoInverseMatrix(coef_matrix));
+                Matrix<T> answer(pseudo_matrix * const_terms);
+                cout << "Inconsistent system - there can be only pseudoanswer:" << "\n";
+                return getSolutionRG(answer);
+
+            }
+        }
+        cout << "Inconsistent system - there is no solution" << "\n";
+        return res;
+    }
+
+    //  Система совместна и определена - имеет единственное решение
+    if (rank == coef_matrix.w()) {
+        reverseGauss(triangular_matrix);
+        return getSolutionRG(triangular_matrix);
+
+    }
+
+    //  Система совместна и не определена - имеет бесконечное множество решений
+    if (rank < coef_matrix.w()) {
+        Matrix<T> const_values(coef_matrix.w(), triangular_matrix.w() - rank, null_el);
+        underReverseGauss(triangular_matrix, const_values, rank);
+        return getSolutionURG(const_values);
+    }
+    return res;
+}
+/*
 vector<string> slau(int n, int m, vector<double> B, vector<vector<double>> A) //n - количество строк и соотв количество элементов в B; m - столбцы; A -матрица; B - свободные коэф
 {
     int v, eq, i, p;
@@ -1052,7 +579,31 @@ vector<string> slau(int n, int m, vector<double> B, vector<vector<double>> A) //
 
     return sleCalculator_vec(M, b, null_el);
 }
+*/
+char **slau_char(int n, int m, double* B, double* A)
+{
+    int v, eq, i, p;
+    vector<Fraction> f;
+    vector<Fraction> b1;
+    Fraction null_el(0);
 
+    v = m; eq = n;
+    for (i = 0; i < eq; i++) {
+        for(int j=0;j<v;j++) {
+            Fraction el(int(A[i*n+j] * drob), drob);
+            f.push_back(el);
+        }
+    }
+    Matrix<Fraction> M(eq, v, f);
+
+    for (i = 0; i < eq; i++) {
+        Fraction el(int(B[i] * drob), drob);
+        b1.push_back(el);
+    }
+    Matrix<Fraction> b(eq, 1, b1);
+
+    return sleCalculator_vec_char(M, b, null_el);
+}
 
 //определенный интеграл
 double f(double x)
@@ -1088,11 +639,12 @@ double proizvodnaya(double x) // точка, в которой вычисляе�
     return fc;
 }
 
+
 int main()
 {
     vector <vector<double>> a = {{1, 2}, {0, 1}};
     vector <double> b = { 3,1 };
-    vector<string> res = slau(2,2,b,a);
+    vector<string> res = slau_char(2, 2,b,a);
     for(int i=0;i<res.size();i++)
         cout << res[i] <<endl;
 }

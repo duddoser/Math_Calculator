@@ -68,7 +68,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         buttons = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             String button_id = "btn_main_" + i;
-            Log.e("AAAAAAA", button_id);
             buttons.add(view.findViewById(getResources().getIdentifier(button_id,
                     "id", getActivity().getPackageName())));
             buttons.get(i).setOnClickListener(this);

@@ -34,6 +34,10 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
     private Button btnDeterminant, btnSole;
     private ArrayList<EditText> etArray = new ArrayList<>();
 
+    static {
+        System.loadLibrary("mathcalculator");
+    }
+
     public MatrixFragment() {
         // Required empty public constructor
     }
@@ -117,55 +121,35 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
     public void onClick(View v) {
         if (v == btnDeterminant) {
             TextView textViewDet = view.findViewById(R.id.tv_det_res);
-            int [][] mat = new int[height][width];
+            double [] mat = new double[height * width];
             int k = 0;
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    mat[i][j] = Integer.parseInt(etArray.get(k).getText().toString());
-                    k++;
-                }
+            for (int i = 0; i < height * width; i++) {
+                mat[i] = Double.parseDouble(etArray.get(k).getText().toString());
             }
-            
-            double result = Algorithms.determinantOfMatrix(mat, height);
+
+//            double result = NdkManager.determinantOfMatrix(height, mat);
+            double result = 10;
             textViewDet.setText("Determinant: " + result);
             
         } else if (v == btnSole) {
-            double [][] mat = new double[height][width];
+            double [] mat = new double[height * width];
             int k = 0;
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    mat[i][j] = Integer.parseInt(etArray.get(k).getText().toString());
-                    k++;
-                }
+            for (int i = 0; i < height * width; i++) {
+                mat[i] = Double.parseDouble(etArray.get(k).getText().toString());
             }
 
-            double[] x = new double[100];
-
-            Algorithms.partialPivot(mat, height);
-            Algorithms.backSubstitute(mat, height, x);
-
-            TextView textView1 = view.findViewById(R.id.x1);
-            TextView textView2 = view.findViewById(R.id.x2);
-            TextView textView3 = view.findViewById(R.id.x3);
-            TextView textView4 = view.findViewById(R.id.x4);
-            TextView textView5 = view.findViewById(R.id.x5);
-            TextView textView6 = view.findViewById(R.id.x6);
-            TextView textView7 = view.findViewById(R.id.x7);
-
-            HashMap<Integer, TextView> text_views = new HashMap<>();
-            text_views.put(0, textView1);
-            text_views.put(1, textView2);
-            text_views.put(2, textView3);
-            text_views.put(3, textView4);
-            text_views.put(4, textView5);
-            text_views.put(5, textView6);
-            text_views.put(6, textView7);
-
-            for (int i = 0; i < height; i++) {
-                text_views.get(i).setText(Double.toString(x[i]));
+            ArrayList<TextView> eq_results = new ArrayList<>();
+            for (int i = 1; i < height + 1; i++) {
+                String text_view_id = "x" + i;
+                eq_results.add(view.findViewById(getResources().getIdentifier(text_view_id,
+                        "id", getActivity().getPackageName())));
             }
 
-//            ArrayList<String> = slau();
+//            for (int i = 0; i < height; i++) {
+//                eq_results.get(i).setText(Double.toString(x[i]));
+//            }
+
         }
     }
+
 }

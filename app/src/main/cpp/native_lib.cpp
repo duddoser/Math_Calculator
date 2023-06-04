@@ -1,10 +1,10 @@
-#include <jni.h>
-#include <string>
+#include "nativelib_NdkManager.h"
 
-extern "C" JNIEXPORT jstring  extern "C" JNICALL
-Java_com_example_mathcalculator_MainActivity_stringFromJNI (
-        JNIEnv* env,
-        jobject) {
-    std::string hello = "Hello from";
-    return env->NewStringUTF(hello.c_str());
+extern "C" {
+    JNIEXPORT jdouble JNICALL Java_com_example_mathcalculator_NdkManager_determinantOfMatrix
+            (JNIEnv * env, jobject obj, jint n, jdoubleArray array) {
+        double* mat = new double[n * n];
+        mat = env->GetDoubleArrayElements(array, 0);
+        return n;
+    }
 }

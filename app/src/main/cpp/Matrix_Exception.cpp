@@ -7,14 +7,12 @@ using namespace std;
 class Exception: public exception{
  protected:
   //сообщение об ошибке
-  char* str;
+  string str;
  public:
   Exception(const char* s){
-    str = new char[strlen(s) + 1];
-    strcpy_s(str, strlen(s) + 1, s);
+    str = s;
   }
   Exception(char* s){
-    str = new char[strlen(s) + 1];
     strcpy_s(str, strlen(s) + 1, s);
   }
   Exception(){

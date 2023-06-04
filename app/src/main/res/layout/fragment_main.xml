@@ -17,7 +17,7 @@
             android:id="@+id/outlinedTextField"
             android:hint="@string/label"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="70dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
@@ -25,6 +25,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_input"
+                android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
@@ -35,7 +36,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_output"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="70dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"

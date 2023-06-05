@@ -13,22 +13,10 @@
         android:orientation="horizontal"
         android:layout_centerHorizontal="true">
 
-        <ImageView
-            android:id="@+id/bracket_left"
-            android:layout_width="10dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/bracket_left"/>
-
         <TableLayout
             android:id="@+id/table_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:id="@+id/bracket_right"
-            android:layout_height="match_parent"
-            android:layout_width="10dp"
-            android:src="@drawable/bracket_right"/>
 
     </LinearLayout>
 

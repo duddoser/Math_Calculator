@@ -21,10 +21,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -89,25 +85,8 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
                     LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
-//        ImageView bracket_left = view.findViewById(R.id.bracket_left);
-//        ImageView bracket_right = view.findViewById(R.id.bracket_right);
-//
-//        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(10, 20 + etArray.get(0).getHeight() * height);
-//        bracket_left.setLayoutParams(parms);
-//        bracket_right.setLayoutParams(parms);
 
     }
-
-//    protected TextInputEditText generateTextField() {
-//        TextInputLayout textInputLayout = new TextInputLayout(new ContextThemeWrapper(getContext(),
-//                R.style.Widget_MaterialComponents_TextInputLayout_OutlinedBox));
-//        textInputLayout.setBoxBackgroundColor(ContextCompat.getColor(getContext(),
-//                android.R.color.white));
-//        textInputLayout.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE);
-//
-//        TextInputEditText editText = new TextInputEditText(textInputLayout.getContext());
-//        return editText;
-//    }
 
     @Override
     public void okButtonClicked(Pair<Integer, Integer> value) {

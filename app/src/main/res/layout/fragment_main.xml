@@ -21,11 +21,13 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
+            app:endIconMode="clear_text"
+            app:endIconDrawable="@drawable/cancel"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_input"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
@@ -39,15 +41,49 @@
             android:layout_height="70dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="24dp"
+            android:textColor="@color/black"
             android:layout_marginEnd="24dp"
+            android:textSize="18sp"
             android:shadowColor="@color/elements_background"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="350dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_keyboard1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/elements_background"
+            app:cornerRadius="30dp"
+            android:textSize="12sp"
+            android:text="@string/first_keyboard"
+            android:textColor="@color/main"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_keyboard2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:text="@string/second_keyboard"
+            android:textSize="12sp"
+            android:textColor="@color/main"
+            android:backgroundTint="@color/elements_background"
+            app:cornerRadius="30dp"/>
 
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="332dp"
         android:layout_marginStart="24dp"
         android:backgroundTint="@color/elements_background"
@@ -59,6 +95,7 @@
         android:minWidth="0dp"
         app:fabCustomSize="64dp"
         />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab2"
@@ -78,6 +115,7 @@
         />
 
     <LinearLayout
+        android:id="@+id/linear_layout_first_keyboard"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_gravity="bottom"
@@ -223,8 +261,8 @@
                 android:insetBottom="0dp"
                 android:textColor="@color/main"
                 android:layout_weight="1"
-                android:text="⋅"
-                android:textSize="46sp"
+                android:text="*"
+                android:textSize="26sp"
                 />
 
         </LinearLayout>
@@ -318,7 +356,7 @@
                 android:insetBottom="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="X^2"
+                android:text="x^2"
                 android:textSize="22sp"
                 />
 
@@ -344,7 +382,7 @@
                 android:insetBottom="0dp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:text=","
+                android:text="."
                 android:textSize="46sp"
                 />
 
@@ -357,7 +395,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="="
+                android:text="^"
                 android:textSize="22sp"
                 />
 
@@ -372,6 +410,307 @@
                 android:layout_weight="1"
                 android:text="+"
                 android:textSize="22sp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_second_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_0"
+                android:textColor="@color/main"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="exp"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="ln"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_2"
+                android:layout_width="0dp"
+                android:textColor="@color/main"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_weight="1"
+                android:text="cos"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_3"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="sin"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="tg"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="ctg"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="sec"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="cosec"
+                android:textSize="13sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="asin"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="acos"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:padding="0dp">
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_10"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="atg"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_11"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="actg"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_12"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="log2"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_13"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/main"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_weight="1"
+                android:text="lg"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_14"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="sinh"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_15"
+                android:layout_width="0dp"
+                android:textColor="@color/main"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="cosh"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_16"
+                android:layout_width="0dp"
+                android:textColor="@color/main"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="tgh"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_17"
+                android:textColor="@color/main"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="ctgh"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_18"
+                android:textColor="@color/main"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="abs"
+                android:textSize="14sp"
+                />
+
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:id="@+id/btn_sec_19"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:textColor="@color/main"
+                android:layout_weight="1"
+                android:text="sqrt"
+                android:textSize="14sp"
                 />
 
         </LinearLayout>

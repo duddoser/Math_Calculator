@@ -8,4 +8,6 @@
     <string name="width">Width: </string>
     <string name="determinant">Determinant</string>
     <string name="sole">SOLE</string>
+    <string name="first_keyboard">x, +, *</string>
+    <string name="second_keyboard">cos, ln</string>
 </resources>

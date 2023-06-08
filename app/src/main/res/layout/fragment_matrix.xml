@@ -20,14 +20,25 @@
 
     </LinearLayout>
 
-
-    <TableLayout
-        android:id="@+id/table_layout_sole"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="360dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:orientation="horizontal">
+
+        <TableLayout
+            android:id="@+id/table_layout_sole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TableLayout
+            android:id="@+id/table_layout_coefs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_det_res"

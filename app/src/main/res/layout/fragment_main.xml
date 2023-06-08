@@ -48,37 +48,17 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="42dp"
-        android:orientation="horizontal"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_keyboard1"
+        android:layout_width="90dp"
+        android:layout_height="44dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="350dp">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_keyboard1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/elements_background"
-            app:cornerRadius="30dp"
-            android:textSize="12sp"
-            android:text="@string/first_keyboard"
-            android:textColor="@color/main"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_keyboard2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:text="@string/second_keyboard"
-            android:textSize="12sp"
-            android:textColor="@color/main"
-            android:backgroundTint="@color/elements_background"
-            app:cornerRadius="30dp"/>
-
-    </LinearLayout>
+        android:layout_marginTop="350dp"
+        android:backgroundTint="@color/elements_background"
+        app:cornerRadius="30dp"
+        android:textSize="12sp"
+        android:text="@string/first_keyboard"
+        android:textColor="@color/main"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -88,6 +68,22 @@
         android:layout_marginStart="24dp"
         android:backgroundTint="@color/elements_background"
         app:srcCompat="@drawable/matrix_btn"
+        app:tint="@null"
+        app:iconGravity="textStart"
+        android:padding="0dp"
+        app:iconPadding="0dp"
+        android:minWidth="0dp"
+        app:fabCustomSize="64dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/camera"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="262dp"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="@color/elements_background"
+        app:srcCompat="@drawable/camera"
         app:tint="@null"
         app:iconGravity="textStart"
         android:padding="0dp"

@@ -1,12 +1,18 @@
 package com.example.mathcalculator;
 
+import static androidx.core.content.ContextCompat.checkSelfPermission;
+
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,8 +34,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private View view;
     private TextView text_view_output;
     private EditText edit_text_input;
-    private FloatingActionButton btn_matrix, btn_proceed;
-    private Button btn1, btn2;
+    private FloatingActionButton btn_matrix, btn_proceed, btn_camera;
+    private Button btn1;
     private ArrayList<Button> buttons, buttons2;
     private String[] alphabet = {"(", "7", "8", "9", "/", ")", "4", "5",
                                 "6", "*", "x", "1", "2", "3", "-", "x^2", "0", ".", "^", "+"};
@@ -66,9 +72,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         btn1 = view.findViewById(R.id.btn_keyboard1);
         btn1.setOnClickListener(this);
 
-        btn2 = view.findViewById(R.id.btn_keyboard2);
-        btn2.setOnClickListener(this);
-
         keyboard1 = view.findViewById(R.id.linear_layout_first_keyboard);
         keyboard2 = view.findViewById(R.id.linear_layout_second_keyboard);
         keyboard2.setVisibility(View.INVISIBLE);
@@ -79,6 +82,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         btn_proceed = view.findViewById(R.id.fab2);
         btn_proceed.setOnClickListener(this);
+
+        btn_camera = view.findViewById(R.id.camera);
+        btn_camera.setOnClickListener(this);
 
         edit_text_input = view.findViewById(R.id.et_input);
         edit_text_input.setShowSoftInputOnFocus(false);
@@ -112,13 +118,25 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         } else if (v == btn_proceed) {
             createAlertDialog();
         } else if (v == btn1) {
-            keyboard1.setVisibility(View.VISIBLE);
-            keyboard2.setVisibility(View.INVISIBLE);
-            keyboard2.setVisibility(View.GONE);
-        } else if (v == btn2) {
-            keyboard2.setVisibility(View.VISIBLE);
-            keyboard1.setVisibility(View.INVISIBLE);
-            keyboard1.setVisibility(View.GONE);
+            if (btn1.getText().toString().equals("x, +, *")) {
+                btn1.setText("cos, ln");
+                keyboard2.setVisibility(View.VISIBLE);
+                keyboard1.setVisibility(View.INVISIBLE);
+                keyboard1.setVisibility(View.GONE);
+            } else {
+                btn1.setText("x, +, *");
+                keyboard1.setVisibility(View.VISIBLE);
+                keyboard2.setVisibility(View.INVISIBLE);
+                keyboard2.setVisibility(View.GONE);
+            }
+        } else if (v == btn_camera) {
+            if (this.getActivity().checkSelfPermission(Manifest.permission.CAMERA) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 3);
+            } else {
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
+            }
         } else {
             String text = edit_text_input.getText().toString();
 
@@ -159,7 +177,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     public void formatInput(String input) {
-        Log.e("AAAAAAAAAA", input);
         Function inputFunction = new Function("F(x) = " + input);
         Argument x = new Argument("x = " + point);
         Expression expression = new Expression("F(x)", inputFunction, x);

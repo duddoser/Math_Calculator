@@ -29,6 +29,8 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
     private int height, width;
     private Button btnDeterminant, btnSole;
     private ArrayList<EditText> etArray = new ArrayList<>();
+    private ArrayList<EditText> etArray2 = new ArrayList<>();
+    private math math_object;
 
     static {
         System.loadLibrary("mathcalculator");
@@ -54,6 +56,7 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_matrix, container, false);
+        math_object = new math();
 
         DialogFragment fragment = new DialogFragmentMatrix(this);
         fragment.show(getFragmentManager(), "dialog");
@@ -75,8 +78,6 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
 //                TextInputEditText cell = generateTextField();
                 EditText cell = new EditText(this.getContext());
                 etArray.add(i * width + j, cell);
-                // не воспринимает числа с плавающей точкой
-                cell.setInputType(InputType.TYPE_CLASS_NUMBER);
                 cell.setBackground(null);
                 cell.setText("0");
                 row.addView(cell);
@@ -85,6 +86,20 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
                     LinearLayout.LayoutParams.WRAP_CONTENT));
         }
 
+        TableLayout table2 = view.findViewById(R.id.table_layout_coefs);
+        for (int i = 0; i < height; i++) {
+            TableRow row = new TableRow(this.getContext());
+            row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+//                TextInputEditText cell = generateTextField();
+            EditText cell = new EditText(this.getContext());
+            etArray2.add(i, cell);
+            cell.setBackground(null);
+            cell.setText("0");
+            row.addView(cell);
+            table2.addView(row, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
 
     }
 
@@ -92,7 +107,6 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
     public void okButtonClicked(Pair<Integer, Integer> value) {
         height = (int) value.first;
         width = (int) value.second;
-        Log.e("AAAAA", Integer.toString(height));
         generateMatrix();
     }
 
@@ -107,7 +121,7 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
             }
 
 //            double result = NdkManager.determinantOfMatrix(height, mat);
-            double result = 10;
+            double result = math_object.det(height, mat);
             textViewDet.setText("Determinant: " + result);
             
         } else if (v == btnSole) {
@@ -117,6 +131,11 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
                 mat[i] = Double.parseDouble(etArray.get(k).getText().toString());
             }
 
+            double[] B = new double[height];
+            for (int i = 0; i < height; i++) {
+                mat[i] = Double.parseDouble(etArray2.get(i).getText().toString());
+            }
+
             ArrayList<TextView> eq_results = new ArrayList<>();
             for (int i = 1; i < height + 1; i++) {
                 String text_view_id = "x" + i;
@@ -124,9 +143,10 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
                         "id", getActivity().getPackageName())));
             }
 
-//            for (int i = 0; i < height; i++) {
-//                eq_results.get(i).setText(Double.toString(x[i]));
-//            }
+            String[] sole_result = math_object.slau(height, height, B, mat);
+            for (int i = 0; i < height; i++) {
+                eq_results.get(i).setText(sole_result[i]);
+            }
 
         }
     }

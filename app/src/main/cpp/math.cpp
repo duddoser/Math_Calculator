@@ -642,5 +642,13 @@ double proizvodnaya(double x) // точка, в которой вычисляе�
 
 int main()
 {
+<<<<<<< HEAD:app/src/main/cpp/math.cpp
     return 0;
+=======
+    vector <vector<double>> a = {{1, 2}, {0, 1}};
+    vector <double> b = { 3,1 };
+    vector<string> res = slau_char(2, 2,b,a);
+    for(int i=0;i<res.size();i++)
+        cout << res[i] <<endl;
+>>>>>>> 1e7873fc4d8311624f2f8d3f99063286ba34533d:math.cpp
 }

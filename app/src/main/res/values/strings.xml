@@ -10,4 +10,8 @@
     <string name="sole">SOLE</string>
     <string name="first_keyboard">x, +, *</string>
     <string name="second_keyboard">cos, ln</string>
+    <string name="incorresct_input">Input is incorrect</string>
+    <string name="action_text">OK</string>
+    <string name="incorrect_determinant">Error: the matrix is singular</string>
+    <string name="big_matrix">The app supports matrix with 7 rows and 7 columns.</string>
 </resources>

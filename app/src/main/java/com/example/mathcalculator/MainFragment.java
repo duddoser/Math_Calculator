@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.util.Log;
@@ -27,6 +28,10 @@ import org.mariuszgromada.math.mxparser.*;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
@@ -186,6 +191,45 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         } else {
             String text = expression.getExpressionString() + "=" + result;
             text_view_output.setText(text);
+        }
+    }
+
+    public void classifyImage() {
+
+    }
+
+//    private File createImageFile() throws IOException {
+//        // Create an image file name
+//        String imageFileName = "JPEG_DETECTION_IMAGE";
+//        File storageDir = this.getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+//        File image = File.createTempFile(
+//                imageFileName,  /* prefix */
+//                ".jpg",         /* suffix */
+//                storageDir      /* directory */
+//        );
+//
+//        // Save a file: path for use with ACTION_VIEW intents
+//        currentPhotoPath = image.getAbsolutePath();
+//        return image;
+//    }
+
+    String processPython(String text_file) {
+        ProcessBuilder pb = new ProcessBuilder("python", text_file);
+        try {
+            Process p = pb.start();
+            p.getInputStream();
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(p.getInputStream()));
+            StringBuilder builder = new StringBuilder();
+            String line = null;
+            while ( (line = reader.readLine()) != null) {
+                builder.append(line);
+                builder.append(System.getProperty("line.separator"));
+            }
+            String result = builder.toString();
+            return result;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

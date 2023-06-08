@@ -1,5 +1,6 @@
 package com.example.mathcalculator;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -21,6 +22,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -77,7 +82,7 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
             for (int j = 0; j < width; j++) {
 //                TextInputEditText cell = generateTextField();
                 EditText cell = new EditText(this.getContext());
-                etArray.add(i * width + j, cell);
+                etArray.add(cell);
                 cell.setBackground(null);
                 cell.setText("0");
                 row.addView(cell);
@@ -93,7 +98,7 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
                     LinearLayout.LayoutParams.WRAP_CONTENT));
 //                TextInputEditText cell = generateTextField();
             EditText cell = new EditText(this.getContext());
-            etArray2.add(i, cell);
+            etArray2.add(cell);
             cell.setBackground(null);
             cell.setText("0");
             row.addView(cell);
@@ -112,42 +117,52 @@ public class MatrixFragment extends Fragment implements CustomDialogInterface, V
 
     @Override
     public void onClick(View v) {
-        if (v == btnDeterminant) {
-            TextView textViewDet = view.findViewById(R.id.tv_det_res);
-            double [] mat = new double[height * width];
-            int k = 0;
-            for (int i = 0; i < height * width; i++) {
-                mat[i] = Double.parseDouble(etArray.get(k).getText().toString());
-            }
+        try {
+            if (v == btnDeterminant) {
+                TextView textViewDet = view.findViewById(R.id.tv_det_res);
+                double [] mat = new double[height * width];
+                for (int i = 0; i < height * width; i++) {
+                    mat[i] = Double.parseDouble(etArray.get(i).getText().toString());
+                }
 
 //            double result = NdkManager.determinantOfMatrix(height, mat);
-            double result = math_object.det(height, mat);
-            textViewDet.setText("Determinant: " + result);
-            
-        } else if (v == btnSole) {
-            double [] mat = new double[height * width];
-            int k = 0;
-            for (int i = 0; i < height * width; i++) {
-                mat[i] = Double.parseDouble(etArray.get(k).getText().toString());
-            }
+                double result = math_object.det(height, mat);
+                new MaterialAlertDialogBuilder(this.getContext()).
+                        setTitle("Determinant").
+                        setMessage("Determinant of the matrix equals: " + result).
+                        show();
 
-            double[] B = new double[height];
-            for (int i = 0; i < height; i++) {
-                mat[i] = Double.parseDouble(etArray2.get(i).getText().toString());
-            }
+            } else if (v == btnSole) {
+                double[] mat = new double[height * width];
+                for (int i = 0; i < height * width; i++) {
+                    mat[i] = Double.parseDouble(etArray.get(i).getText().toString());
+                }
 
-            ArrayList<TextView> eq_results = new ArrayList<>();
-            for (int i = 1; i < height + 1; i++) {
-                String text_view_id = "x" + i;
-                eq_results.add(view.findViewById(getResources().getIdentifier(text_view_id,
-                        "id", getActivity().getPackageName())));
-            }
+                double[] B = new double[height];
+                for (int i = 0; i < height; i++) {
+                    B[i] = Double.parseDouble(etArray2.get(i).getText().toString());
+                }
 
-            String[] sole_result = math_object.slau(height, height, B, mat);
-            for (int i = 0; i < height; i++) {
-                eq_results.get(i).setText(sole_result[i]);
-            }
+                ArrayList<TextView> eq_results = new ArrayList<>();
+                for (int i = 1; i < height + 1; i++) {
+                    String text_view_id = "x" + i;
+                    eq_results.add(view.findViewById(getResources().getIdentifier(text_view_id,
+                            "id", getActivity().getPackageName())));
+                }
 
+                Log.e("MATRIX AAAAAA", mat[0] + " " + mat[1] + " " + mat[2] + " " + mat[3]);
+                Log.e("MATRIX BBBBBB", B[0] + " " + B[1]);
+
+                String[] sole_result = math_object.slau(height, height, B, mat);
+                for (int i = 0; i < height; i++) {
+                    eq_results.get(i).setText(sole_result[i]);
+                }
+
+            }
+        } catch (NumberFormatException nfe) {
+            Snackbar.make(view, R.string.incorresct_input, Snackbar.LENGTH_SHORT).show();
+        } catch (IndexOutOfBoundsException ioobe) {
+            Snackbar.make(view, R.string.incorrect_determinant, Snackbar.LENGTH_SHORT).show();
         }
     }
 

@@ -18,6 +18,8 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class DialogFragmentMatrix extends DialogFragment {
     private View view;
     private MatrixFragment matrixFragment;
@@ -60,9 +62,13 @@ public class DialogFragmentMatrix extends DialogFragment {
         EditText h = (EditText) view.findViewById(R.id.ed_height);
         int height = Integer.parseInt(h.getText().toString());
 
-        Pair<Integer, Integer> pair = new Pair<>(height, height);
-        dialog.dismiss();
-        customDialogInterface.okButtonClicked(pair);
+        if (height > 7) {
+            Snackbar.make(view, R.string.big_matrix, Snackbar.LENGTH_SHORT).show();
+        } else {
+            Pair<Integer, Integer> pair = new Pair<>(height, height);
+            dialog.dismiss();
+            customDialogInterface.okButtonClicked(pair);
+        }
     }
 
     void setCustomDialogInterface(CustomDialogInterface customDialogInterface) {
